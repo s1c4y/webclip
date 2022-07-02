@@ -1,8 +1,10 @@
 from xml.dom.minidom import TypeInfo
 from fastapi.testclient import TestClient
-#import os, sys
-#sys.path.insert(1, os.path.join(sys.path[0], '..'))
+
+import os, sys
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from app import *
+
 #python -m pytest tests/
 
 client = TestClient(app)
