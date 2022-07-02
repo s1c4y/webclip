@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/templates/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/templates/assets/css/fontawesome.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/templates/assets/img/favicon.ico">
+    <title>WebClip</title>
+</head>
+
+<body>
+
+    <style>
+        body,
+        html {
+            font-family: sans-serif;
+            font-size: large;
+            height: 100%;
+        }
+
+        .card {
+            width: 50%;
+        }
+
+        .list-group {
+            margin-top: 100px;
+        }
+
+        .remove-item:hover {
+            background-color: rgb(200, 10, 100);
+        }
+    </style>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <form action="/add" method="post">
+                        <label for="textarea" class="form-label">
+                            <h2>Text</h2>
+                        </label>
+                        <textarea class="form-control" placeholder="paste text here" name="msg" id="textarea"
+                            style="height: 200px"></textarea>
+
+                        <button type="submit" class="btn btn-primary mt-3 float-end">Save</button>
+                    </form>
+
+                    <ul class="list-group">
+                        {% for text in msg_list %}
+                        <li class="list-group-item justify-content-between align-items-center">
+                            <span class="name">{{ text.msg }}</span>
+                            <div>
+                                <a class="btn btn-default btn-xs float-end remove-item" href="/delete/{{ text.id }}"
+                                    role="button">
+                                    <i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">
+                                <h2>Files</h2>
+                            </label>
+                            <input class="form-control" type="file" name="file" id="formFile">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3 float-end">Upload</button>
+                    </form>
+
+                    <ul class="list-group">
+                        {% for file in files_list %}
+                        <li class="list-group-item justify-content-between align-items-center">
+                            <span class="name"></span>
+                            <span class="name"><a href="/dl/{{ file }}" download>{{ file }}</a></span>
+                            <div>
+                                <a class="btn btn-default btn-xs float-end remove-item" href="/deletefile/{{ file }}"
+                                    role="button">
+                                    <i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
